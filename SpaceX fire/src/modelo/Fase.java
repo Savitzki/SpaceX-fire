@@ -51,6 +51,7 @@ public class Fase extends JPanel implements ActionListener {
 
 	public void initEnemies() {
 		int coord[] = new int[40];
+		
 		enemies = new ArrayList<Enemy>();
 
 		for (int i = 0; i < coord.length; i++) {
@@ -87,6 +88,8 @@ public class Fase extends JPanel implements ActionListener {
 		} else {
 			ImageIcon gameOver = new ImageIcon("img\\gameOver.png");
 			grafic.drawImage(gameOver.getImage(), 330, 100, null);
+			
+			
 		}
 
 		g.dispose();
@@ -155,6 +158,13 @@ public class Fase extends JPanel implements ActionListener {
 	private class TecladoAdapter extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent t) {
+			
+			if (t.getKeyCode() == KeyEvent.VK_ENTER) {
+				inGame= true;
+				player = new Player();
+				player.loadPlayer();
+				initEnemies();
+			}
 			player.keyPressed(t);
 		}
 
@@ -163,5 +173,7 @@ public class Fase extends JPanel implements ActionListener {
 			player.keyReleased(t);
 		}
 	}
+
+	
 
 }
