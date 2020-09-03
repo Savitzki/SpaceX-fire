@@ -1,6 +1,7 @@
 package modelo;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -33,6 +34,11 @@ public class Missile {
 		if (this.x > WIDTH) {
 			isVisible = false;
 		}
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, width, height);
+		
 	}
 
 	public void setVisible(boolean isVisible) {

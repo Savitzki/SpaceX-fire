@@ -1,6 +1,7 @@
 package modelo;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class Player {
 
 	private int x, y, dx, dy, height, width;
 	private Image imagePlayer;
+	private boolean isVisible;
 	private List<Missile> missiles;
 
 	public Player() {
@@ -53,6 +55,11 @@ public class Player {
 	
 	public void simpleMissile() {
 		this.missiles.add(new Missile(x+width, (y+height/2)));
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, width, height);
+		
 	}
 
 	public void keyPressed(KeyEvent k) {
@@ -115,6 +122,14 @@ public class Player {
 
 	public List<Missile> getMissiles() {
 		return missiles;
+	}
+
+	public boolean isVisible() {
+		return isVisible;
+	}
+
+	public void setVisible(boolean isVisible) {
+		this.isVisible = isVisible;
 	}
 	
 	
