@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -44,10 +45,18 @@ public class Fase extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 
 		Graphics2D grafic = (Graphics2D) g;
-		// desenhando a imagem no painel do jframe
+		// desenhando a imagem do background na view
 		grafic.drawImage(image, 0, 0, null);
 
-		grafic.drawImage(((Player) player).getImagePlayer(), player.getX(), player.getY(), this);
+		// desenhando o player na view
+		grafic.drawImage(player.getImagePlayer(), player.getX(), player.getY(), this);
+
+		List<Missile> missiles = player.getMissiles();
+		for (int i = 0; i < missiles.size(); i++) {
+			Missile m = missiles.get(i);
+			m.loadMissile();
+			grafic.drawImage(m.getImageMissile(), m.getX(), m.getY(), this);
+		}
 		g.dispose();
 
 	}
@@ -56,10 +65,21 @@ public class Fase extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		player.updatePlayer();
+		List<Missile> missiles = player.getMissiles();
+		for (int i = 0; i < missiles.size(); i++) {
+			Missile m = missiles.get(i);
+			if (m.isVisible()) {
+				m.updateMissile();
+			} else {
+				missiles.remove(i);
+			}
+		}
+
 		repaint();
 
 	}
 
+	// classe para verificar a captura de teclas (movimentaçao do player)
 	private class TecladoAdapter extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent t) {

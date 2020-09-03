@@ -2,18 +2,23 @@ package modelo;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
 public class Player {
 
-	private int x, y, dx, dy, altura, largura;
+	private int x, y, dx, dy, height, width;
 	private Image imagePlayer;
+	private List<Missile> missiles;
 
 	public Player() {
 
 		this.x = 100;
 		this.y = 100;
+		
+		missiles = new ArrayList<Missile>();
 	}
 
 	// metodo para ler a imagem do player e definir o seu tamanho no painel
@@ -21,8 +26,8 @@ public class Player {
 		ImageIcon ref = new ImageIcon("img\\spaceship.png");
 		imagePlayer = ref.getImage();
 
-		altura = imagePlayer.getHeight(null);
-		largura = imagePlayer.getWidth(null);
+		height = imagePlayer.getHeight(null);
+		width = imagePlayer.getWidth(null);
 	}
 
 	// metodo para atualizar o player
@@ -45,10 +50,18 @@ public class Player {
 			y = 1;
 		}
 	}
+	
+	public void simpleMissile() {
+		this.missiles.add(new Missile(x+width, (y+height/2)));
+	}
 
 	public void keyPressed(KeyEvent k) {
 		int cod = k.getKeyCode();
+		
+		if (cod == KeyEvent.VK_SPACE) {
+			simpleMissile();
 
+		}
 		if (cod == KeyEvent.VK_UP) {
 			dy = -3;
 
@@ -100,4 +113,11 @@ public class Player {
 		return imagePlayer;
 	}
 
+	public List<Missile> getMissiles() {
+		return missiles;
+	}
+	
+	
+
 }
+
